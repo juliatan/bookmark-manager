@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Link, :focus => true do
+describe Link, :focus => true do 
   
   context 'Demonstration of how DataMapper works' do
 

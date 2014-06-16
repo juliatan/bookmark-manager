@@ -26,3 +26,8 @@ DataMapper.auto_upgrade!
 # leads to data loss, use auto_migrate:
 # DataMapper.auto_migrate!
 # Finally, don't forget that before you do any of that stuff, you need to create a database first.
+
+get '/' do
+  @links = Link.all
+  erb :index
+end
