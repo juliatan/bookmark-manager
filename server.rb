@@ -1,5 +1,4 @@
-# require 'spec/spec_helper.rb'
-require 'data_mapper'
+require 'data_mapper' # cannot link to spec_helper because that links to server
 
 env = ENV["RACK_ENV"] || "development"
 
@@ -19,4 +18,10 @@ DataMapper.finalize
 # However, the database tables don't exist yet. Let's tell DataMapper to
 # create them.
 DataMapper.auto_upgrade!
-# auto_upgrade! reconcile what’s in the database already with the changes you want to make
+# auto_upgrade makes non-destructive changes. If your tables don't exist, they will be created
+# but if they do and you changed your schema (e.g. changed the type of one of the properties)
+# they will not be upgraded because that'd lead to data loss.
+# To force the creation of all tables as they are described in your models, even if this
+# leads to data loss, use auto_migrate:
+# DataMapper.auto_migrate!
+# Finally, don't forget that before you do any of that stuff, you need to create a database first.
