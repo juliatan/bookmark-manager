@@ -4,8 +4,8 @@
 class Link
 
   # The POST model needs to be persistent, therefore include Datamapper::Resource
-  # This makes the instances of this class Datamapper resources
-  # i.e. gives us custom methods to be used in this class Link
+  # This makes the methods of the Resource class in Datamapper available to
+  # this Link class
   include DataMapper::Resource
 
   # This block describes what resources our model will have
@@ -14,3 +14,6 @@ class Link
   property :url,    String
 
 end
+
+# each line created in this database represents an instance variable when a 
+# DataMapper is run over it

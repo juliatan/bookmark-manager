@@ -14,7 +14,7 @@ feature 'User adds a new link', :focus => true do
 
   def add_link(url, title)
     within('#new-link') do
-      fill_in 'url', :with => url
+      fill_in 'url', :with => url # mimicking form filling
       fill_in 'title', :with => title
       click_button 'Add link'
     end

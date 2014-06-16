@@ -1,5 +1,6 @@
+# require only the gems / files not needed in testing
 require 'sinatra'
-require 'data_mapper' # cannot link to spec_helper because that links to server
+require 'data_mapper'
 
 env = ENV["RACK_ENV"] || "development"
 
@@ -10,6 +11,7 @@ DataMapper.setup(:default, "postgres://localhost/bookmark_manager_#{env}")
 # default here is the default adaptor for this type of database (postgres)
 # the URL shown is the URL for the database
 
+# require all the Database Classes in our app
 require './lib/link' # this needs to be done after DataMapper is initialised
 
 # After declaring your models, you should finalise them (when they are checked
@@ -28,9 +30,11 @@ DataMapper.auto_upgrade!
 # Finally, don't forget that before you do any of that stuff, you need to create a database first.
 
 get '/' do
-  @links = Link.all # method from DataMapper that takes all lines in database and creates objects
+  @links = Link.all
   erb :index
 end
+# .all is a method from DataMapper that takes all lines in database and creates instance variables
+# @links will be an array
 
 post '/links' do
   url = params["url"]
@@ -38,3 +42,4 @@ post '/links' do
   Link.create(:url => url, :title => title)
   redirect to ('/')
 end
+# .create is a method from DataMapper that creates a new line in the database

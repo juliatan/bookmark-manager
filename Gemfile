@@ -6,6 +6,6 @@ gem 'dm-postgres-adapter'
 gem 'capybara'
 gem 'database_cleaner'
 
-group :development, :test do
+group :development, :test do # not for production
   gem 'rspec'
 end
