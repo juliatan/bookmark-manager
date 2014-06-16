@@ -1,3 +1,4 @@
+require 'sinatra'
 require 'data_mapper' # cannot link to spec_helper because that links to server
 
 env = ENV["RACK_ENV"] || "development"
