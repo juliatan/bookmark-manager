@@ -28,6 +28,13 @@ DataMapper.auto_upgrade!
 # Finally, don't forget that before you do any of that stuff, you need to create a database first.
 
 get '/' do
-  @links = Link.all
+  @links = Link.all # method from DataMapper that takes all lines in database and creates objects
   erb :index
+end
+
+post '/links' do
+  url = params["url"]
+  title = params["title"]
+  Link.create(:url => url, :title => title)
+  redirect to ('/')
 end
