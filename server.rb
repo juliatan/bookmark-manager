@@ -13,6 +13,7 @@ DataMapper.setup(:default, "postgres://localhost/bookmark_manager_#{env}")
 
 # require all the Database Classes in our app
 require './lib/link' # this needs to be done after DataMapper is initialised
+require './lib/tag'
 
 # After declaring your models, you should finalise them (when they are checked
 # for consistency)
@@ -39,7 +40,15 @@ end
 post '/links' do
   url = params["url"]
   title = params["title"]
-  Link.create(:url => url, :title => title)
+
+  tags = params["tags"].split(" ").map do |tag|
+    #this will either find it or create it if it doesn't exist
+    Tag.first_or_create(:text => tag)
+  end
+  # note that we are passing an array of instances to Link, rather than just text
+  # because a tag is a database record of ID and text
+
+  Link.create(:url => url, :title => title, :tags => tags)
   redirect to ('/')
 end
 # .create is a method from DataMapper that creates a new line in the database
