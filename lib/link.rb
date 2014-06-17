@@ -8,13 +8,13 @@ class Link
   # this Link class
   include DataMapper::Resource
 
-  has n, :tags, :through => Resource #Tags model has a many to many relationship
-
   # This block describes what resources our model will have
   property :id,     Serial # Serial means that it will be auto-incremented for every record
   property :title,  String
   property :url,    String
 
+  has n, :tags, :through => Resource #Tags model has a many to many relationship
+  
   # each line created in this database represents an instance variable when a 
   # DataMapper is run over it
 
