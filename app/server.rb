@@ -73,8 +73,10 @@ post '/users' do
     redirect to ('/')
   # if it's not valid, we'll show the same form again
   else
-    # required to ensure flash is served immediately
-    flash.now[:notice] = "Sorry, your passwords do not match"
+    # .now required to ensure flash is served immediately
+    # the .errors object contains all validation errors
+    # .full_messages returns an array of all the errors as strings
+    flash.now[:errors] = @user.errors.full_messages
     erb :"users/new"
   end
 end
