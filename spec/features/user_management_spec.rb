@@ -82,3 +82,18 @@ feature "User signs out", :focus => true do
   end
 
 end
+
+feature "User requests for password reset", :focus => true do
+
+  before(:each) do
+    User.create(:email => "test@test.com",
+                :password => "test",
+                :password_confirmation => "test")
+  end
+
+  scenario 'when on the log in page' do
+    visit('/sessions/new')
+    click_link 'Forgot password'
+    expect(page).to have_content "Enter your email"
+  end
+end
