@@ -2,6 +2,11 @@ get '/sessions/new' do
   erb :"sessions/new"
 end
 
+post '/sessions/new' do
+  flash[:notice] = "Go check your email"
+  redirect to('/sessions/new')
+end  
+
 post '/sessions' do
   email, password = params[:email], params[:password]
   user = User.authenticate(email, password)

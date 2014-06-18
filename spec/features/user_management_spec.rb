@@ -96,4 +96,10 @@ feature "User requests for password reset", :focus => true do
     click_link 'Forgot password'
     expect(page).to have_content "Enter your email"
   end
+
+  scenario 'once user requests for password' do
+    visit('/users/reset_password')
+    click_button 'Gimme my password!'
+    expect(page).to have_content "Go check your email"
+  end
 end
