@@ -1,6 +1,8 @@
 # require only the gems / files not needed in testing
 require 'sinatra'
 require 'data_mapper'
+# require 'rack-flash'
+require 'sinatra/flash'
 
 # require all the Database Classes in our app
 require './lib/link' # this needs to be done after DataMapper is initialised
@@ -45,16 +47,34 @@ get '/users/new' do
   # we need the quotes because otherwise
   # ruby would divide the symbol :users by the
   # variable new (which makes no sense)
+  @user = User.new #needed since we created @user in the new user erb page
   erb :"users/new"
 end
 
 enable :sessions
 set :session_secret, 'super secret'
 #Then, let's save the user ID in the session after it is created
+
+# use Rack::Flash
+register Sinatra::Flash
+
 post '/users' do
-  user = User.create( :email => params[:email],
+  # we just initialize the object without saving it. It may be invalid.
+  # note we make user an instance variable so that the user's email will be
+  # included when the form is re-rendered if it was invalid
+  @user = User.create( :email => params[:email],
                       :password => params[:password],
                       :password_confirmation => params[:password_confirmation])
-  session[:user_id] = user.id
-  redirect to ('/')
+  # let's try saving it - it will save if the model is valid.
+  # the user.id will be nil if the user wasn't saved
+  # because of password mismatch
+  if @user.save
+    session[:user_id] = @user.id
+    redirect to ('/')
+  # if it's not valid, we'll show the same form again
+  else
+    # required to ensure flash is served immediately
+    flash.now[:notice] = "Sorry, your passwords do not match"
+    erb :"users/new"
+  end
 end
