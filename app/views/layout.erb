@@ -1,29 +1,14 @@
-<body>
-  <% if current_user %>
-    Welcome, <%= current_user.email %>
-    <form method="post" action="/sessions">
-      <!-- this is used since browsers cannot send DELETE requests -->
-      <!-- note the _method -->
-      <input type="hidden" name="_method" value="delete">
-      <input type="submit" value="Sign out">
-    </form>
-  <% end %>
+<html>
+  
+  <head>
+    <title>Bookmark Manager</title>
+    <link rel="stylesheet" type="text/css" href="/css/application.css">
+  </head>
 
-  <% if flash[:errors] && !flash[:errors].empty? %>
-    Sorry, there were the following problems with the form.
-    <ul id="errors">
-      <% flash[:errors].each do |error| %>
-        <li><%= error %></li>
-      <% end %> 
-    </ul>
-  <% end %>
+  <body>
+    <%= partial :welcome_message %>
+    <%= partial :flash %>
+    <%= yield %>
+  </body>
 
-  <!-- for signing out users -->
-  <% if flash[:notice] %>
-    <div id="notice">
-      <%= flash[:notice] %>
-    </div>
-  <% end %>
-
-  <%= yield %>
-</body>
+</html>
