@@ -13,13 +13,20 @@ feature 'User signs up', :focus => true do
   # to keep the example simple.
 
   scenario 'when being logged out' do
-    lambda { sign_up }.should change(User, :count).by 1
+    expect{ sign_up }.to change(User, :count).by 1
+    # same as: expect(lambda { sign_up }).to change(User, :count).by 1
     expect(page).to have_content "Welcome, alice@example.com"
     expect(User.first.email).to eq "alice@example.com"
   end
 
+  # the lambda about can be written as follows:
+  # user_count = User.all.count
+  # sign_up
+  # expect(User.count).to eq (user_count+1)
+
   scenario "with a password that doesn't match" do
-    lambda { sign_up('a@a.com', 'pass', 'wrong') }.should change(User, :count).by(0)
+    expect{ sign_up('a@a.com', 'pass', 'wrong') }.to change(User, :count).by 0
+    # expect(lambda { sign_up('a@a.com', 'pass', 'wrong') }).to change(User, :count).by 0
   end
 
   def sign_up(email = "alice@example.com",
