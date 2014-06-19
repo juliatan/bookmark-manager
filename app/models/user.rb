@@ -13,6 +13,8 @@ class User
   # 50 characters by default
   # and it's not enough for the hash and salt
   property :password_digest, Text
+  property :password_token, Text
+  property :password_token_timestamp, DateTime
 
   # datamapper needs to be able to read both to make sure they are the same
   # reason we need the writer for :password_confirmation is that we're now 

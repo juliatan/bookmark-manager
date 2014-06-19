@@ -13,7 +13,9 @@ post '/users' do
   # included when the form is re-rendered if it was invalid
   @user = User.create( :email => params[:email],
                       :password => params[:password],
-                      :password_confirmation => params[:password_confirmation])
+                      :password_confirmation => params[:password_confirmation],
+                      :password_token => params[:password_token],
+                      :password_token_timestamp => params[:password_token_timestamp])
   # let's try saving it - it will save if the model is valid.
   # the user.id will be nil if the user wasn't saved
   # because of password mismatch
@@ -32,4 +34,33 @@ end
 
 get '/users/reset_password' do
   erb :"users/reset_password"
+end
+
+get '/users/reset_password/:token' do
+  user = User.first(:password_token => params[:token])
+
+  if user.password_token_timestamp + (60*60) > DateTime.now
+    @token = params[:token]
+    redirect to ('/users/set_password')
+  else
+    flash.now[:notice] = "The password token has expired"
+    erb :"users/reset_password"
+  end
+end
+
+get '/users/set_password' do
+  erb :"users/set_password"
+end
+
+post '/users/delete_token' do
+  user = User.first(:password_token => params[:token])
+
+  user.password_token = nil
+  # user.update(:password_token => nil)
+  user.save
+    # user.password_token_timestamp = nil
+    # redirect to ('/sessions/new')
+  # else
+  #   redirect to '/'
+  # end
 end

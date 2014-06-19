@@ -13,7 +13,7 @@ DataMapper.finalize
 
 # However, the database tables don't exist yet. Let's tell DataMapper to
 # create them.
-DataMapper.auto_upgrade!
+# DataMapper.auto_upgrade! # uncomment as necessary!
 # auto_upgrade makes non-destructive changes. If your tables don't exist, they will be created
 # but if they do and you changed your schema (e.g. changed the type of one of the properties)
 # they will not be upgraded because that'd lead to data loss.

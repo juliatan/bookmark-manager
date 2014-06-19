@@ -4,7 +4,13 @@ end
 
 post '/sessions/new' do
   flash[:notice] = "Go check your email"
-  redirect to('/sessions/new')
+  
+  user = User.first(:email => params[:email])
+  user.password_token = (1..64).map{ ('A'..'Z').to_a.sample }.join
+  user.password_token_timestamp = Time.now
+  user.save
+  
+  redirect to('/sessions/new') # since flash only works on second reload
 end  
 
 post '/sessions' do
