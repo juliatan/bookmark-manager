@@ -8,6 +8,7 @@ gem 'bcrypt-ruby'
 gem 'sinatra-flash'
 gem 'sinatra-partial'
 gem 'pg'
+gem 'rest-client'
 
 group :development, :test do # not for production
   gem 'rspec'

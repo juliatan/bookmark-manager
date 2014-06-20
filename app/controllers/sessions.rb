@@ -3,13 +3,16 @@ get '/sessions/new' do
 end
 
 post '/sessions/new' do
+  email = params[:email]
   flash[:notice] = "Go check your email"
   
-  user = User.first(:email => params[:email])
+  user = User.first(:email => email)
   user.password_token = (1..64).map{ ('A'..'Z').to_a.sample }.join
   user.password_token_timestamp = Time.now
   user.save
-  
+  url = "http://localhost:9393/users/reset_password?token=#{user.password_token}"
+  send_recovery_email(email,url)
+
   redirect to('/sessions/new') # since flash only works on second reload
 end  
 

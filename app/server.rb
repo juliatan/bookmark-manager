@@ -3,8 +3,10 @@ require 'sinatra'
 require 'data_mapper'
 require 'sinatra/flash'
 require 'sinatra/partial'
+require 'rest_client'
 
 require_relative 'helpers/application'
+require_relative 'helpers/email'
 require_relative 'data_mapper_setup'
 
 require_relative 'controllers/users'
@@ -20,3 +22,5 @@ set :session_secret, 'super secret'
 # use Rack::Flash
 register Sinatra::Flash
 set :partial_template_engine, :erb
+
+use Rack::Static, :urls => ['/css', '/js', '/images'], :root => 'public'
