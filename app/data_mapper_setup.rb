@@ -3,7 +3,7 @@ env = ENV["RACK_ENV"] || "development"
 # we are telling DataMapper to use a postgres database on localhost.
 # The name will be bookmark_manager_test or bookmark_manager_development depening
 # on the environment.
-DataMapper.setup(:default, "postgres://localhost/bookmark_manager_#{env}")
+DataMapper.setup(:default, ENV['DATABASE_URL'] || "postgres://localhost/bookmark_manager_#{env}")
 # default here is the default adaptor for this type of database (postgres)
 # the URL shown is the URL for the database
 
