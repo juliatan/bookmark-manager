@@ -113,11 +113,14 @@ feature "User requests for password reset", :focus => true do
     fill_in('email', :with => 'test@test.com')
     click_button 'Gimme my password!'
     token = User.first.password_token
+    # debugger
     visit("/users/reset_password/#{token}")
+    # save_and_open_page
     expect(page).to have_content "Enter your new password"
     fill_in('password', :with => 'test')
     fill_in('password_confirmation', :with => 'test')
     click_button 'Reset password'
+    token = User.first.password_token
     expect(token).to be nil
   end
 

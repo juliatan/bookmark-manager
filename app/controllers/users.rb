@@ -38,10 +38,9 @@ end
 
 get '/users/reset_password/:token' do
   user = User.first(:password_token => params[:token])
-
+  @token = params[:token]
   if user.password_token_timestamp + (60*60) > DateTime.now
-    @token = params[:token]
-    redirect to ('/users/set_password')
+    erb :'/users/set_password'
   else
     flash.now[:notice] = "The password token has expired"
     erb :"users/reset_password"
@@ -55,12 +54,13 @@ end
 post '/users/delete_token' do
   user = User.first(:password_token => params[:token])
 
-  user.password_token = nil
-  # user.update(:password_token => nil)
-  user.save
-    # user.password_token_timestamp = nil
-    # redirect to ('/sessions/new')
-  # else
-  #   redirect to '/'
-  # end
+  if user
+    user.update(:password_token => nil,
+                :password => params[:password],
+                :password_confirmation => params[:password_confirmation])
+    user.save
+    redirect to ('/sessions/new')
+  else
+    redirect to ('/sessions/new')
+  end
 end
