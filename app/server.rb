@@ -3,7 +3,6 @@ require 'sinatra'
 require 'data_mapper'
 require 'sinatra/flash'
 require 'sinatra/partial'
-require 'debugger'
 
 require_relative 'models/link' # this needs to be done after DataMapper is initialised
 require_relative 'models/tag'
