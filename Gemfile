@@ -7,6 +7,7 @@ gem 'bcrypt-ruby'
 # gem 'rack-flash3'
 gem 'sinatra-flash'
 gem 'sinatra-partial'
+gem 'pg'
 
 group :development, :test do # not for production
   gem 'rspec'

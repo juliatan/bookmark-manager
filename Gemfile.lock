@@ -78,6 +78,7 @@ GEM
     multi_json (1.10.1)
     nokogiri (1.6.3.rc1)
       mini_portile (= 0.6.0)
+    pg (0.17.1)
     rack (1.5.2)
     rack-protection (1.5.3)
       rack
@@ -120,6 +121,7 @@ DEPENDENCIES
   debugger
   dm-postgres-adapter
   launchy
+  pg
   rspec
   sinatra
   sinatra-flash
