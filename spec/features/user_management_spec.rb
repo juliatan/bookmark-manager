@@ -98,7 +98,7 @@ feature "User requests for password reset", :focus => true do
   end
 
   scenario 'once user requests for password' do
-    visit('/users/reset_password')
+    visit('/users/forgot_password')
     fill_in('email', :with => 'test@test.com')
     expect(User.first.password_token).to be nil
     expect(User.first.password_token_timestamp).to be nil
@@ -109,12 +109,12 @@ feature "User requests for password reset", :focus => true do
   end
 
   scenario 'once user clicks on email' do
-    visit('/users/reset_password')
+    visit('/users/forgot_password')
     fill_in('email', :with => 'test@test.com')
     click_button 'Gimme my password!'
     token = User.first.password_token
     # debugger
-    visit("/users/reset_password/#{token}")
+    visit("/users/reset_password?token=#{token}")
     # save_and_open_page
     expect(page).to have_content "Enter your new password"
     fill_in('password', :with => 'test')

@@ -36,7 +36,7 @@ get '/users/forgot_password' do
   erb :"users/reset_password"
 end
 
-get '/users/reset_password' do
+get '/users/reset_password' do # this is the link clicked from the email
   user = User.first(:password_token => params[:token])
   @token = params[:token]
   if user.password_token_timestamp + (60*60) > DateTime.now
