@@ -7,6 +7,10 @@ DataMapper.setup(:default, ENV['DATABASE_URL'] || "postgres://localhost/bookmark
 # default here is the default adaptor for this type of database (postgres)
 # the URL shown is the URL for the database
 
+require_relative 'models/link' # this needs to be done after DataMapper is initialised
+require_relative 'models/tag'
+require_relative 'models/user'
+
 # After declaring your models, you should finalise them (when they are checked
 # for consistency)
 DataMapper.finalize
