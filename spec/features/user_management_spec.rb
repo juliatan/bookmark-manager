@@ -102,7 +102,7 @@ feature "User requests for password reset", :focus => true do
     fill_in('email', :with => 'test@test.com')
     expect(User.first.password_token).to be nil
     expect(User.first.password_token_timestamp).to be nil
-    click_button 'Gimme my password!'
+    click_button 'Submit'
     expect(page).to have_content "Go check your email"
     expect(User.first.password_token).not_to be nil
     expect(User.first.password_token_timestamp).not_to be nil
@@ -111,7 +111,7 @@ feature "User requests for password reset", :focus => true do
   scenario 'once user clicks on email' do
     visit('/users/forgot_password')
     fill_in('email', :with => 'test@test.com')
-    click_button 'Gimme my password!'
+    click_button 'Submit'
     token = User.first.password_token
     # debugger
     visit("/users/reset_password?token=#{token}")
@@ -119,7 +119,7 @@ feature "User requests for password reset", :focus => true do
     expect(page).to have_content "Enter your new password"
     fill_in('password', :with => 'test')
     fill_in('password_confirmation', :with => 'test')
-    click_button 'Reset password'
+    click_button 'Reset'
     token = User.first.password_token
     expect(token).to be nil
   end

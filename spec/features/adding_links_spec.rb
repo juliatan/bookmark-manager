@@ -27,12 +27,13 @@ feature 'User adds a new link', :focus => true do
   end
 
   def add_link(url, title, tags=[])
-    within('#new-link') do
+    # within('#links') do
+    visit('/links/new')
       fill_in 'url', :with => url # mimicking form filling
       fill_in 'title', :with => title
       # our tags will be space separated
       fill_in 'tags', :with => tags.join(" ")
       click_button 'Add link'
-    end
+    # end
   end
 end

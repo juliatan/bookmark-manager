@@ -13,3 +13,7 @@ post '/links' do
   redirect to ('/')
 end
 # .create is a method from DataMapper that creates a new line in the database
+
+get '/links/new' do
+  erb :"links/new"
+end
