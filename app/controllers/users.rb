@@ -11,7 +11,7 @@ post '/users' do
   # we just initialize the object without saving it. It may be invalid.
   # note we make user an instance variable so that the user's email will be
   # included when the form is re-rendered if it was invalid
-  @user = User.create( :email => params[:email],
+  @user = User.new( :email => params[:email],
                       :password => params[:password],
                       :password_confirmation => params[:password_confirmation],
                       :password_token => params[:password_token],
