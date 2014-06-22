@@ -43,3 +43,18 @@ Technologies used
 * PostgresQL
 * Datamapper
 * Heroku
+
+How to run program
+------------------
+```sh
+git clone https://github.com/juliatan/bookmark-manager
+cd bookmark-manager
+shotgun
+```
+
+How to run tests
+----------------
+```sh
+cd bookmark-manager
+rspec
+```
