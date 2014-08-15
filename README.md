@@ -8,6 +8,7 @@ This was the project set for Week 6 at Makers Academy - the creation of a bookma
 - Relational databases
 - Security considerations
 - HTML / CSS
+- Deployment to Heroku
 
 My finished project can be viewed at: http://mighty-thicket-8298.herokuapp.com/
 
@@ -38,11 +39,19 @@ Technologies used
 * Rspec
 * Sinatra
 * Capybara
-* CSS
-* HTML
+* CSS3
+* HTML5
 * PostgresQL
 * Datamapper
-* Heroku
+* Bcrypt
+* Mailgun
+* Heroku 
+
+Potential future improvements
+-----------------------------
+
+* Improved front-end design
+* Form field validations
 
 How to run program
 ------------------
