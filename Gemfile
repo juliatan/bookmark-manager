@@ -12,7 +12,7 @@ gem 'rest-client'
 
 group :development, :test do # not for production
   gem 'rspec'
-  gem 'debugger'
+  # gem 'debugger'
   gem 'capybara'
   gem 'database_cleaner'
   gem 'launchy'
